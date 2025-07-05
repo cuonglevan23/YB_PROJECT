@@ -9,6 +9,9 @@ interface BaseDropdownProps {
   isActive: boolean;
   isOpen: boolean;
   onToggle: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onClick?: () => void;
   children: ReactNode;
   className?: string;
   isCollapsed?: boolean;
@@ -20,6 +23,9 @@ const BaseDropdown = memo(function BaseDropdown({
   isActive,
   isOpen,
   onToggle,
+  onMouseEnter,
+  onMouseLeave,
+  onClick,
   children,
   className = "",
   isCollapsed = false,
@@ -59,15 +65,21 @@ const BaseDropdown = memo(function BaseDropdown({
       {/* Dropdown Content - POSITIONED OUTSIDE SIDEBAR */}
       {isOpen && (
         <div
-          className="fixed w-64 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-[100]"
+          className="fixed w-64 bg-gray-800 border border-gray-600/50 rounded-xl shadow-2xl z-[100] backdrop-blur-sm animate-in fade-in-0 zoom-in-95 duration-200"
           style={{
             left: `${position.x}px`,
             top: `${position.y}px`,
-            minHeight: "200px",
-            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+            maxHeight: "calc(100vh - 32px)",
+            boxShadow:
+              "0 20px 40px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)",
+            background:
+              "linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%)",
           }}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onClick={onClick}
         >
-          {children}
+          <div className="p-0 overflow-y-auto max-h-full">{children}</div>
         </div>
       )}
     </div>

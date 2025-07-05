@@ -46,39 +46,41 @@ const BarChart = memo(function BarChart({
   strokeDasharray = "3 3",
 }: BarChartProps) {
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full bg-black rounded-lg p-4 ${className}`}>
       <ResponsiveContainer width="100%" height={height}>
         <RechartsBarChart
           data={data}
           margin={{
-            top: 5,
+            top: 20,
             right: 30,
             left: 20,
-            bottom: 5,
+            bottom: 20,
           }}
         >
           {showGrid && (
             <CartesianGrid
               strokeDasharray={strokeDasharray}
-              stroke="#374151"
-              opacity={0.5}
+              stroke="#1F2937"
+              opacity={0.8}
             />
           )}
           <XAxis
             dataKey={xAxisDataKey}
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#9CA3AF", fontSize: 12 }}
+            tick={{ fill: "#D1D5DB", fontSize: 12 }}
+            className="text-gray-300"
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#9CA3AF", fontSize: 12 }}
+            tick={{ fill: "#D1D5DB", fontSize: 12 }}
+            className="text-gray-300"
           />
           {showTooltip && (
             <Tooltip
               contentStyle={{
-                backgroundColor: "#1F2937",
+                backgroundColor: "#000000",
                 border: "1px solid #374151",
                 borderRadius: "8px",
                 color: "#F9FAFB",

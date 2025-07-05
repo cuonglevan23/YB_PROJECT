@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { UniversalSearchDropdown } from "../components/ui/inputs";
 import type { SearchResult } from "../components/ui/inputs";
-import { 
+import {
   KeywordOpportunitiesSection,
   SearchTermsSection,
   RisingKeywordsSection,
@@ -147,26 +147,30 @@ const KeywordsPage = memo(function KeywordsPage() {
               // Handle keyword selection - could navigate or filter
               console.log("Selected keyword:", result.title);
             }}
-            searchResults={searchQuery.trim() ? [
-              { 
-                id: "1", 
-                title: `${searchQuery} analysis`,
-                subtitle: "Get detailed analysis",
-                type: "suggestion",
-              },
-              { 
-                id: "2", 
-                title: `${searchQuery} trends`,
-                subtitle: "View trending data",
-                type: "trending",
-              },
-              { 
-                id: "3", 
-                title: `${searchQuery} research`,
-                subtitle: "Research insights",
-                type: "recent",
-              },
-            ] : []}
+            searchResults={
+              searchQuery.trim()
+                ? [
+                    {
+                      id: "1",
+                      title: `${searchQuery} analysis`,
+                      subtitle: "Get detailed analysis",
+                      type: "suggestion",
+                    },
+                    {
+                      id: "2",
+                      title: `${searchQuery} trends`,
+                      subtitle: "View trending data",
+                      type: "trending",
+                    },
+                    {
+                      id: "3",
+                      title: `${searchQuery} research`,
+                      subtitle: "Research insights",
+                      type: "recent",
+                    },
+                  ]
+                : []
+            }
             className="max-w-full"
             noResultsMessage="No keyword suggestions found"
           />
@@ -224,11 +228,11 @@ const KeywordsPage = memo(function KeywordsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Top keyword opportunities */}
               <KeywordOpportunitiesSection data={keywordOpportunities} />
-              
+
               {/* Top search terms */}
               <SearchTermsSection data={searchTerms} />
             </div>
-            
+
             {/* Rising Keywords */}
             <RisingKeywordsSection data={risingKeywords} />
           </div>

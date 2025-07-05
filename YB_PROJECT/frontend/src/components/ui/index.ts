@@ -19,6 +19,9 @@ export * from './dropdowns';
 // Inputs
 export * from './inputs';
 
+// Filters
+export * from './filters';
+
 // Modals
 export * from './modals';
 

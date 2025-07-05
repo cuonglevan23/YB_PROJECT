@@ -37,8 +37,15 @@ const Sidebar = memo(function Sidebar() {
     openModal: openCheckoutModal,
     closeModal: closeCheckoutModal,
   } = useCheckoutModal();
-  const { toggleDropdown, closeDropdown, isDropdownOpen } =
-    useSidebarDropdowns();
+  const {
+    toggleDropdown,
+    isDropdownOpen,
+    handleMouseEnter,
+    handleMouseLeave,
+    handleDropdownMouseEnter,
+    handleDropdownMouseLeave,
+    handleDropdownClick,
+  } = useSidebarDropdowns();
 
   const menuItems: SidebarItem[] = [
     { path: "/", labelKey: "home", icon: AiOutlineHome },
@@ -97,10 +104,18 @@ const Sidebar = memo(function Sidebar() {
             // Special handling for Research dropdown
             if (item.isSpecial && item.type === "research") {
               return (
-                <div key={item.labelKey} className="relative">
+                <div
+                  key={item.labelKey}
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter("research")}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <ResearchDropdown
                     onToggle={() => toggleDropdown("research")}
                     isOpen={isDropdownOpen("research")}
+                    onMouseEnter={handleDropdownMouseEnter}
+                    onMouseLeave={handleDropdownMouseLeave}
+                    onClick={handleDropdownClick}
                     isCollapsed={isCollapsed}
                   />
                 </div>
@@ -110,11 +125,19 @@ const Sidebar = memo(function Sidebar() {
             // Special handling for Coach dropdown
             if (item.isSpecial && item.type === "coach") {
               return (
-                <div key={item.labelKey} className="relative">
+                <div
+                  key={item.labelKey}
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter("coach")}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <CoachDropdown
                     isActive={isCoachActive}
                     onToggle={() => toggleDropdown("coach")}
                     isOpen={isDropdownOpen("coach")}
+                    onMouseEnter={handleDropdownMouseEnter}
+                    onMouseLeave={handleDropdownMouseLeave}
+                    onClick={handleDropdownClick}
                     isCollapsed={isCollapsed}
                   />
                 </div>
@@ -124,12 +147,19 @@ const Sidebar = memo(function Sidebar() {
             // Special handling for Create dropdown
             if (item.isSpecial && item.type === "create") {
               return (
-                <div key={item.labelKey} className="relative">
+                <div
+                  key={item.labelKey}
+                  className="relative"
+                  onMouseEnter={() => handleMouseEnter("create")}
+                  onMouseLeave={handleMouseLeave}
+                >
                   <CreateDropdown
                     isActive={isCreateActive}
                     onToggle={() => toggleDropdown("create")}
                     isOpen={isDropdownOpen("create")}
-                    onClose={() => closeDropdown()}
+                    onMouseEnter={handleDropdownMouseEnter}
+                    onMouseLeave={handleDropdownMouseLeave}
+                    onClick={handleDropdownClick}
                     isCollapsed={isCollapsed}
                   />
                 </div>
@@ -143,7 +173,7 @@ const Sidebar = memo(function Sidebar() {
                 <button
                   key={item.labelKey}
                   onClick={item.onClick}
-                  className={`w-full flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors text-gray-400 hover:text-white ${
+                  className={`w-full flex items-center p-3 rounded-lg hover:bg-gray-700 transition-colors text-gray-400 hover:text-white group ${
                     isCollapsed ? "justify-center" : "justify-start"
                   }`}
                   title={t(item.labelKey)}
@@ -171,12 +201,12 @@ const Sidebar = memo(function Sidebar() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`w-full flex items-center p-3 rounded-lg transition-colors ${
+                  className={`w-full flex items-center p-3 rounded-lg transition-all duration-200 ease-in-out ${
                     isCollapsed ? "justify-center" : "justify-start"
                   } ${
                     isActive
-                      ? "bg-blue-600 text-white"
-                      : "text-gray-400 hover:text-white hover:bg-gray-700"
+                      ? "bg-blue-600 text-white shadow-lg transform scale-105 ring-2 ring-blue-400/50"
+                      : "text-gray-400 hover:text-white hover:bg-gray-700 hover:scale-105 hover:shadow-lg"
                   }`}
                   title={t(item.labelKey)}
                 >

@@ -44,7 +44,7 @@ const CustomTooltip = ({
 }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-gray-800 border border-gray-600 rounded-lg p-4 shadow-lg">
+      <div className="bg-black border border-gray-700 rounded-lg p-4 shadow-2xl">
         <p className="text-gray-300 text-sm mb-2">{label}</p>
         {payload.map((entry, index) => {
           const line = lines?.find((l) => l.dataKey === entry.dataKey);
@@ -101,34 +101,36 @@ const LineChart = memo(function LineChart({
   strokeDasharray = "3 3",
 }: LineChartProps) {
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full bg-black rounded-lg p-4 ${className}`}>
       <ResponsiveContainer width="100%" height={height}>
         <RechartsLineChart
           data={data}
           margin={{
-            top: 5,
+            top: 20,
             right: 30,
             left: 20,
-            bottom: 5,
+            bottom: 20,
           }}
         >
           {showGrid && (
             <CartesianGrid
               strokeDasharray={strokeDasharray}
-              stroke="#374151"
-              opacity={0.5}
+              stroke="#1F2937"
+              opacity={0.8}
             />
           )}
           <XAxis
             dataKey={xAxisDataKey}
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#9CA3AF", fontSize: 12 }}
+            tick={{ fill: "#D1D5DB", fontSize: 12 }}
+            className="text-gray-300"
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#9CA3AF", fontSize: 12 }}
+            tick={{ fill: "#D1D5DB", fontSize: 12 }}
+            className="text-gray-300"
           />
           {showTooltip && <Tooltip content={<CustomTooltip lines={lines} />} />}
           {showLegend && <Legend />}
@@ -138,10 +140,10 @@ const LineChart = memo(function LineChart({
               type={line.type || "monotone"}
               dataKey={line.dataKey}
               stroke={line.stroke}
-              strokeWidth={line.strokeWidth || 2}
+              strokeWidth={line.strokeWidth || 3}
               name={line.name}
-              dot={{ fill: line.stroke, strokeWidth: 2, r: 4 }}
-              activeDot={{ r: 6, fill: line.stroke }}
+              dot={{ fill: line.stroke, strokeWidth: 2, r: 5 }}
+              activeDot={{ r: 7, fill: line.stroke, strokeWidth: 2 }}
             />
           ))}
         </RechartsLineChart>

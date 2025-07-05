@@ -5,20 +5,25 @@ This directory contains reusable search dropdown components that can be used thr
 ## Components Overview
 
 ### 1. UniversalSearchDropdown
+
 The base component that provides all search dropdown functionality.
 
-### 2. KeywordSearchDropdown 
+### 2. KeywordSearchDropdown
+
 Specialized for keyword searches with add functionality.
 
 ### 3. VideoSearchDropdown
+
 Specialized for video searches with video-specific data.
 
 ### 4. SearchBar
+
 Basic search bar component (legacy).
 
 ## Usage Examples
 
 ### KeywordSearchDropdown in Modal
+
 ```tsx
 <KeywordSearchDropdown
   placeholder="Search keywords to add..."
@@ -34,6 +39,7 @@ Basic search bar component (legacy).
 ```
 
 ### UniversalSearchDropdown in Main Pages
+
 ```tsx
 <UniversalSearchDropdown
   placeholder="Search anything..."
@@ -46,6 +52,7 @@ Basic search bar component (legacy).
 ```
 
 ### VideoSearchDropdown
+
 ```tsx
 <VideoSearchDropdown
   placeholder="Search videos..."
@@ -59,6 +66,7 @@ Basic search bar component (legacy).
 ## Migration from Old SearchBar
 
 ### Before:
+
 ```tsx
 <SearchBar
   value={searchQuery}

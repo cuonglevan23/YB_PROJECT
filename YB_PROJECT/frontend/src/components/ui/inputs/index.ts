@@ -6,3 +6,4 @@ export { SearchWithFilters } from './SearchWithFilters';
 export type { SearchResult } from './UniversalSearchDropdown';
 export { default as Input } from './Input';
 export { default as SearchBar } from './SearchBar';
+export { default as OutliersSearchBar } from './OutliersSearchBar';

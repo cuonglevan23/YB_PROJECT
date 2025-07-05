@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   MdOutlineCreate,
   MdOutlineImage,
@@ -14,7 +14,9 @@ interface CreateDropdownProps {
   isActive: boolean;
   onToggle: () => void;
   isOpen: boolean;
-  onClose: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onClick?: () => void;
   isCollapsed?: boolean;
 }
 
@@ -22,11 +24,13 @@ const CreateDropdown = memo(function CreateDropdown({
   isActive,
   onToggle,
   isOpen,
-  onClose,
+  onMouseEnter,
+  onMouseLeave,
+  onClick,
   isCollapsed = false,
 }: CreateDropdownProps) {
   const { t } = useLanguage();
-  const navigate = useNavigate();
+  const location = useLocation();
 
   const createOptions = [
     {
@@ -51,18 +55,13 @@ const CreateDropdown = memo(function CreateDropdown({
       path: "/create/script",
     },
     {
-      id: "optimize",
+      id: "generateVideo",
       icon: MdOutlineVideoLibrary,
-      labelKey: "optimizeVideo",
+      labelKey: "generateVideo",
       description: "Optimize existing videos",
-      path: "/create/optimize",
+      path: "/create/GenerateVideo",
     },
   ];
-
-  const handleOptionClick = (path: string) => {
-    navigate(path);
-    onClose();
-  };
 
   return (
     <BaseDropdown
@@ -71,33 +70,36 @@ const CreateDropdown = memo(function CreateDropdown({
       isActive={isActive}
       isOpen={isOpen}
       onToggle={onToggle}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
       isCollapsed={isCollapsed}
     >
-      <div className="p-2">
-        <div className="text-white text-sm font-medium mb-2 px-2">
-          {t("createTools")}
-        </div>
-
+      <div className="py-1">
         {createOptions.map((option) => {
           const Icon = option.icon;
+          const isItemActive = location.pathname === option.path;
+
           return (
-            <button
+            <Link
               key={option.id}
-              onClick={() => handleOptionClick(option.path)}
-              className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-700 transition-colors group"
+              to={option.path}
+              className={`flex items-center gap-3 px-3 py-2 mx-1 my-1 rounded-lg transition-colors ${
+                isItemActive
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-300 hover:bg-gray-700 hover:text-white"
+              }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggle();
+              }}
             >
-              <div className="flex items-center space-x-3">
-                <Icon className="w-4 h-4 text-gray-400 group-hover:text-white" />
-                <div>
-                  <div className="text-white text-sm font-medium">
-                    {t(option.labelKey)}
-                  </div>
-                  <div className="text-gray-400 text-xs">
-                    {option.description}
-                  </div>
-                </div>
+              <Icon className="w-4 h-4 flex-shrink-0" />
+              <div className="flex-1">
+                <div className="font-medium">{t(option.labelKey)}</div>
+                <div className="text-xs opacity-70">{option.description}</div>
               </div>
-            </button>
+            </Link>
           );
         })}
       </div>

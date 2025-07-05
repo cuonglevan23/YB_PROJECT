@@ -1,0 +1,1 @@
+export { TimeHeatmap } from './TimeHeatmap';

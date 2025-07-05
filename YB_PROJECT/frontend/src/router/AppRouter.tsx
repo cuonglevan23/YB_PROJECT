@@ -9,13 +9,19 @@ import ForgotPassword from "../pages/ForgotPassword";
 import AiChatPage from "../pages/AiChatPage";
 import LearnPageNew from "../pages/LearnPageNew";
 import CreatePage from "../pages/CreatePage";
+import ThumbnailsPageFinal from "../pages/ThumbnailsPageFinal";
 import DashboardPage from "../pages/DashboardPage";
 import ResearchPageNew from "../pages/ResearchPageNew";
 import OptimizePage from "../pages/OptimizePage";
 import KeywordsPage from "../pages/KeywordsPage";
 import CompetitorsPage from "../pages/CompetitorsPage";
 import OutliersPage from "../pages/OutliersPage";
+import SubscribersPage from "../pages/SubscribersPage";
 import ProtectedRoute from "../components/ProtectedRoute";
+import IdeasPage from "../pages/IdeasPage";
+import ScriptWriterPage from "../pages/ScriptWriterPage";
+import GenerateVideoPage from "../pages/GenerateVideoPage";
+import ChannelTagsPage from "../pages/ChannelTagsPage";
 
 const router = createBrowserRouter([
   {
@@ -73,7 +79,7 @@ const router = createBrowserRouter([
       },
       {
         path: "research/subscribers",
-        element: <ResearchPageNew />,
+        element: <SubscribersPage />,
       },
       {
         path: "create",
@@ -81,15 +87,27 @@ const router = createBrowserRouter([
       },
       {
         path: "create/thumbnail",
-        element: <CreatePage />,
+        element: <ThumbnailsPageFinal />,
+      },
+      {
+        path: "create/thumbnails",
+        element: <ThumbnailsPageFinal />,
       },
       {
         path: "create/ideas",
-        element: <CreatePage />,
+        element: <IdeasPage />,
       },
       {
         path: "create/script",
-        element: <CreatePage />,
+        element: <ScriptWriterPage />,
+      },
+      {
+        path: "create/GenerateVideo",
+        element: <GenerateVideoPage />,
+      },
+      {
+        path: "seo",
+        element: <ChannelTagsPage />,
       },
       {
         path: "create/optimize",

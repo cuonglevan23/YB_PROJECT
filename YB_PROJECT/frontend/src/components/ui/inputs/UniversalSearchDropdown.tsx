@@ -27,7 +27,10 @@ interface UniversalSearchDropdownProps {
   debounceMs?: number;
   maxResults?: number;
   showCategories?: boolean;
-  resultRenderer?: (result: SearchResult, onSelect: (result: SearchResult) => void) => React.ReactNode;
+  resultRenderer?: (
+    result: SearchResult,
+    onSelect: (result: SearchResult) => void
+  ) => React.ReactNode;
 }
 
 export const UniversalSearchDropdown = memo(function UniversalSearchDropdown({
@@ -132,7 +135,8 @@ export const UniversalSearchDropdown = memo(function UniversalSearchDropdown({
   );
 
   const displayResults = searchResults.slice(0, maxResults);
-  const showDropdown = isOpen && (displayResults.length > 0 || (value.trim() && !isLoading));
+  const showDropdown =
+    isOpen && (displayResults.length > 0 || (value.trim() && !isLoading));
 
   // Group results by category if showCategories is true
   const groupedResults = showCategories
@@ -144,7 +148,10 @@ export const UniversalSearchDropdown = memo(function UniversalSearchDropdown({
       }, {} as Record<string, SearchResult[]>)
     : { "": displayResults };
 
-  const defaultResultRenderer = (result: SearchResult, onSelectResult: (result: SearchResult) => void) => (
+  const defaultResultRenderer = (
+    result: SearchResult,
+    onSelectResult: (result: SearchResult) => void
+  ) => (
     <button
       key={result.id}
       onClick={() => onSelectResult(result)}
@@ -154,7 +161,9 @@ export const UniversalSearchDropdown = memo(function UniversalSearchDropdown({
       <div className="flex-1 min-w-0">
         <div className="text-sm font-medium truncate">{result.title}</div>
         {result.subtitle && (
-          <div className="text-xs text-gray-400 truncate">{result.subtitle}</div>
+          <div className="text-xs text-gray-400 truncate">
+            {result.subtitle}
+          </div>
         )}
       </div>
       {result.type && (
@@ -201,7 +210,9 @@ export const UniversalSearchDropdown = memo(function UniversalSearchDropdown({
 
       {/* Search Results Dropdown */}
       {showDropdown && !isLoading && (
-        <div className={`absolute top-full left-0 right-0 mt-1 bg-gray-700 border border-gray-600 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto ${dropdownClassName}`}>
+        <div
+          className={`absolute top-full left-0 right-0 mt-1 bg-gray-700 border border-gray-600 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto ${dropdownClassName}`}
+        >
           {displayResults.length > 0 ? (
             showCategories ? (
               Object.entries(groupedResults).map(([category, results]) => (

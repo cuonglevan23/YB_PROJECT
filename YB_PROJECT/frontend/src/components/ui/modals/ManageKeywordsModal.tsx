@@ -53,7 +53,7 @@ export const ManageKeywordsModal = memo(function ManageKeywordsModal({
         { id: "search4", text: `${searchQuery} best practices` },
         { id: "search5", text: `${searchQuery} 2025` },
       ];
-      
+
       // Filter out already added keywords
       const filteredResults = mockResults.filter(
         (result) =>
@@ -61,7 +61,7 @@ export const ManageKeywordsModal = memo(function ManageKeywordsModal({
             (added) => added.text.toLowerCase() === result.text.toLowerCase()
           )
       );
-      
+
       setSearchResults(filteredResults);
     } else {
       setSearchResults([]);

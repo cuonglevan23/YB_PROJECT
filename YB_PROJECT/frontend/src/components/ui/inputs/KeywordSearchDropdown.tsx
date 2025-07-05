@@ -1,6 +1,7 @@
 import { memo, useMemo } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { UniversalSearchDropdown, SearchResult } from "./UniversalSearchDropdown";
+import { UniversalSearchDropdown } from "./UniversalSearchDropdown";
+import type { SearchResult } from "./UniversalSearchDropdown";
 
 interface Keyword {
   id: string;
@@ -40,19 +41,24 @@ export const KeywordSearchDropdown = memo(function KeywordSearchDropdown({
   noResultsMessage = "No results found",
   disabled = false,
 }: KeywordSearchDropdownProps) {
-  
   // Convert keywords to SearchResult format
-  const convertedResults: SearchResult[] = useMemo(() => 
-    searchResults.map(keyword => ({
-      id: keyword.id,
-      title: keyword.text,
-      category: keyword.category,
-      type: keyword.type,
-      data: keyword
-    })), [searchResults]);
+  const convertedResults: SearchResult[] = useMemo(
+    () =>
+      searchResults.map((keyword) => ({
+        id: keyword.id,
+        title: keyword.text,
+        category: keyword.category,
+        type: keyword.type,
+        data: keyword,
+      })),
+    [searchResults]
+  );
 
   // Custom result renderer for keywords
-  const keywordResultRenderer = (result: SearchResult, onSelectResult: (result: SearchResult) => void) => (
+  const keywordResultRenderer = (
+    result: SearchResult,
+    onSelectResult: (result: SearchResult) => void
+  ) => (
     <button
       key={result.id}
       onClick={() => onSelectResult(result)}

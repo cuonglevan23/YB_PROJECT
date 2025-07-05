@@ -1,5 +1,11 @@
 // Utility functions for common operations
 
+// Performance monitoring
+export { default as PerformanceMonitor, withPerformanceMonitoring } from './performance';
+
+// Safe local storage
+export * from './safeLocalStorage';
+
 /**
  * Debounce function to limit the rate of function execution
  */

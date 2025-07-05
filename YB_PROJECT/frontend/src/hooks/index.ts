@@ -17,3 +17,4 @@ export { useDropdownPosition } from './useDropdownPosition';
 export { useChatManager } from './useChatManager';
 export { useResearchFilters } from './useResearchFilters';
 export { useManageKeywordsModal } from './useManageKeywordsModal';
+export { usePerformanceMonitoring, usePageLoadMetrics } from './usePerformance';
