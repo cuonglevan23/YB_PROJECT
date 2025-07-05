@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Card, Button } from "../ui";
+import { Card } from "../ui";
 
 const GoalProgressWidget = memo(function GoalProgressWidget() {
   return (

@@ -15,6 +15,7 @@ interface CreateDropdownProps {
   onToggle: () => void;
   isOpen: boolean;
   onClose: () => void;
+  isCollapsed?: boolean;
 }
 
 const CreateDropdown = memo(function CreateDropdown({
@@ -22,6 +23,7 @@ const CreateDropdown = memo(function CreateDropdown({
   onToggle,
   isOpen,
   onClose,
+  isCollapsed = false,
 }: CreateDropdownProps) {
   const { t } = useLanguage();
   const navigate = useNavigate();
@@ -69,6 +71,7 @@ const CreateDropdown = memo(function CreateDropdown({
       isActive={isActive}
       isOpen={isOpen}
       onToggle={onToggle}
+      isCollapsed={isCollapsed}
     >
       <div className="p-2">
         <div className="text-white text-sm font-medium mb-2 px-2">

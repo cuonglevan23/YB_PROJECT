@@ -26,22 +26,16 @@ export function useSidebarDropdowns() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        if (activeDropdown) {
-          closeDropdown();
-        }
+        closeDropdown();
       }
     };
 
     if (activeDropdown) {
-      // Add small delay to avoid immediate closure
-      setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-      }, 100);
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
     }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, [activeDropdown, closeDropdown]);
 
   return {

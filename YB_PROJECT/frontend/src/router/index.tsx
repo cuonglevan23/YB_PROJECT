@@ -1,18 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "../layouts/Layout";
-import Home from "../pages/Home";
+import DashboardPage from "../pages/DashboardPage";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import ForgotPassword from "../pages/ForgotPassword";
-import LogoDemo from "../pages/LogoDemo";
-import SupportDemo from "../pages/SupportDemo";
 import AiChatPage from "../pages/AiChatPage";
-import LearnPage from "../pages/LearnPage";
+import LearnPageNew from "../pages/LearnPageNew";
 import CreatePage from "../pages/CreatePage";
-import TestPage from "../pages/TestPage";
+import ResearchPageNew from "../pages/ResearchPageNew";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 // Cấu hình routes cho ứng dụng
@@ -40,7 +38,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <TestPage />,
+        element: <DashboardPage />,
       },
       {
         path: "optimize",
@@ -76,7 +74,7 @@ const router = createBrowserRouter([
       },
       {
         path: "coach/learn",
-        element: <LearnPage />,
+        element: <LearnPageNew />,
       },
       {
         path: "coach",
@@ -84,7 +82,7 @@ const router = createBrowserRouter([
       },
       {
         path: "upgrade",
-        element: <Home />,
+        element: <DashboardPage />,
       },
       {
         path: "about",
@@ -96,11 +94,11 @@ const router = createBrowserRouter([
       },
       {
         path: "logo-demo",
-        element: <LogoDemo />,
+        element: <About />,
       },
       {
         path: "support-demo",
-        element: <SupportDemo />,
+        element: <About />,
       },
     ],
   },

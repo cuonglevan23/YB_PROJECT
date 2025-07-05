@@ -1,5 +1,6 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useLanguage } from "../../../contexts/LanguageContext";
+import { useDropdownPosition } from "../../../hooks";
 import type { ComponentType, ReactNode } from "react";
 
 interface BaseDropdownProps {
@@ -10,6 +11,7 @@ interface BaseDropdownProps {
   onToggle: () => void;
   children: ReactNode;
   className?: string;
+  isCollapsed?: boolean;
 }
 
 const BaseDropdown = memo(function BaseDropdown({
@@ -20,35 +22,51 @@ const BaseDropdown = memo(function BaseDropdown({
   onToggle,
   children,
   className = "",
+  isCollapsed = false,
 }: BaseDropdownProps) {
   const { t } = useLanguage();
+  const { position, buttonRef, updatePosition } = useDropdownPosition();
+
+  // Update position when dropdown opens or sidebar state changes
+  useEffect(() => {
+    if (isOpen) {
+      updatePosition();
+    }
+  }, [isOpen, isCollapsed, updatePosition]);
 
   return (
     <div className="relative">
       <button
-        onClick={onToggle}
-        className={`
-          group relative flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200
-          ${
-            isActive
-              ? "bg-blue-600 text-white"
-              : "text-gray-400 hover:text-white hover:bg-gray-700"
-          }
-          ${className}
-        `}
-        title={t(labelKey)}
+        ref={buttonRef}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          onToggle();
+        }}
+        className={`w-full flex items-center p-3 rounded-lg transition-colors ${
+          isCollapsed ? "justify-center" : "justify-start"
+        } ${
+          isActive
+            ? "bg-blue-600 text-white"
+            : "text-gray-400 hover:text-white hover:bg-gray-700"
+        } ${className}`}
+        title={isCollapsed ? t(labelKey) : undefined}
       >
-        <Icon className="w-5 h-5" />
-
-        {/* Tooltip */}
-        <div className="absolute left-full ml-2 px-2 py-1 bg-gray-700 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
-          {t(labelKey)}
-        </div>
+        <Icon className="text-lg flex-shrink-0" />
+        {!isCollapsed && <span className="ml-3 text-sm">{t(labelKey)}</span>}
       </button>
 
-      {/* Dropdown Content */}
+      {/* Dropdown Content - POSITIONED OUTSIDE SIDEBAR */}
       {isOpen && (
-        <div className="absolute left-full ml-2 top-0 w-64 bg-gray-800 border border-gray-700 rounded-lg shadow-lg z-50">
+        <div
+          className="fixed w-64 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-[100]"
+          style={{
+            left: `${position.x}px`,
+            top: `${position.y}px`,
+            minHeight: "200px",
+            boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+          }}
+        >
           {children}
         </div>
       )}

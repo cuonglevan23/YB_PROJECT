@@ -11,6 +11,10 @@ import LearnPageNew from "../pages/LearnPageNew";
 import CreatePage from "../pages/CreatePage";
 import DashboardPage from "../pages/DashboardPage";
 import ResearchPageNew from "../pages/ResearchPageNew";
+import OptimizePage from "../pages/OptimizePage";
+import KeywordsPage from "../pages/KeywordsPage";
+import CompetitorsPage from "../pages/CompetitorsPage";
+import OutliersPage from "../pages/OutliersPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -41,7 +45,15 @@ const router = createBrowserRouter([
       },
       {
         path: "optimize",
-        element: <About />,
+        element: <OptimizePage />,
+      },
+      {
+        path: "keywords",
+        element: <KeywordsPage />,
+      },
+      {
+        path: "competitors",
+        element: <CompetitorsPage />,
       },
       {
         path: "research",
@@ -49,15 +61,15 @@ const router = createBrowserRouter([
       },
       {
         path: "research/outliers",
-        element: <ResearchPageNew />,
+        element: <OutliersPage />,
       },
       {
         path: "research/keywords",
-        element: <ResearchPageNew />,
+        element: <KeywordsPage />,
       },
       {
         path: "research/competitors",
-        element: <ResearchPageNew />,
+        element: <CompetitorsPage />,
       },
       {
         path: "research/subscribers",

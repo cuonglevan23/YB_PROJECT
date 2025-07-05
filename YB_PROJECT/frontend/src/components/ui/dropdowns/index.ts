@@ -8,3 +8,4 @@ export { default as CoachDropdown } from './CoachDropdown';
 export { default as BaseDropdown } from './BaseDropdown';
 export { default as CreateDropdown } from './CreateDropdown';
 export { default as ResearchDropdown } from './ResearchDropdown';
+export { default as CompetitorSearchDropdown } from './CompetitorSearchDropdown';

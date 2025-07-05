@@ -8,11 +8,13 @@ import { MdOutlineTrendingUp } from "react-icons/md";
 interface ResearchDropdownProps {
   isOpen: boolean;
   onToggle: () => void;
+  isCollapsed?: boolean;
 }
 
 const ResearchDropdown = memo(function ResearchDropdown({
   isOpen,
   onToggle,
+  isCollapsed = false,
 }: ResearchDropdownProps) {
   const location = useLocation();
 
@@ -52,6 +54,7 @@ const ResearchDropdown = memo(function ResearchDropdown({
       isActive={isActive}
       isOpen={isOpen}
       onToggle={onToggle}
+      isCollapsed={isCollapsed}
     >
       <div className="py-2">
         {researchItems.map((item) => {

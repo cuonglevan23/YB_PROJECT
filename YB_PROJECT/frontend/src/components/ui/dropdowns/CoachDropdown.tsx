@@ -7,12 +7,14 @@ interface CoachDropdownProps {
   isActive: boolean;
   onToggle: () => void;
   isOpen: boolean;
+  isCollapsed?: boolean;
 }
 
 const CoachDropdown = memo(function CoachDropdown({
   isActive,
   onToggle,
   isOpen,
+  isCollapsed = false,
 }: CoachDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -66,6 +68,7 @@ const CoachDropdown = memo(function CoachDropdown({
         isActive={isActive}
         isOpen={isOpen}
         onToggle={onToggle}
+        isCollapsed={isCollapsed}
       >
         <div className="py-2">
           {coachItems.map((item) => {

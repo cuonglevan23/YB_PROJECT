@@ -1,9 +1,30 @@
 import { memo } from "react";
 import { AiOutlineLineChart, AiOutlineLock } from "react-icons/ai";
 import { Card, Button } from "../ui";
+import { ManageKeywordsModal } from "../ui/modals/ManageKeywordsModal";
+import { useManageKeywordsModal } from "../../hooks/useManageKeywordsModal";
 
 const KeywordOpportunitiesSection = memo(
   function KeywordOpportunitiesSection() {
+    // Initialize keywords modal
+    const initialKeywords = [
+      { id: "1", text: "live stream" },
+      { id: "2", text: "goalkeeper" },
+      { id: "3", text: "football" },
+    ];
+
+    const {
+      isOpen,
+      addedKeywords,
+      suggestedKeywords,
+      openModal,
+      closeModal,
+      addKeyword,
+      removeKeyword,
+      saveKeywords,
+      refreshSuggestions,
+    } = useManageKeywordsModal(initialKeywords);
+
     const keywords = [
       {
         keyword: "live stream",
@@ -31,7 +52,10 @@ const KeywordOpportunitiesSection = memo(
           <h2 className="text-xl font-semibold text-white">
             Top Keyword Opportunities
           </h2>
-          <button className="text-blue-400 hover:text-blue-300 text-sm">
+          <button
+            onClick={openModal}
+            className="text-blue-400 hover:text-blue-300 text-sm"
+          >
             Manage
           </button>
         </div>
@@ -119,6 +143,18 @@ const KeywordOpportunitiesSection = memo(
             </div>
           </div>
         </Card>
+
+        {/* Manage Keywords Modal */}
+        <ManageKeywordsModal
+          isOpen={isOpen}
+          onClose={closeModal}
+          addedKeywords={addedKeywords}
+          suggestedKeywords={suggestedKeywords}
+          onAddKeyword={addKeyword}
+          onRemoveKeyword={removeKeyword}
+          onSave={saveKeywords}
+          onRefreshSuggestions={refreshSuggestions}
+        />
       </div>
     );
   }
