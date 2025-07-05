@@ -134,7 +134,7 @@ const IdeasPage = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const mockIdeas = generateMockIdeas(currentInput, selectedCategory);
-      
+
       const assistantMessage: IdeaMessage = {
         id: (Date.now() + 1).toString(),
         type: "assistant",
@@ -164,7 +164,7 @@ const IdeasPage = () => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      
+
       const mockIdeas = generateMockIdeas(topic, selectedCategory);
       setIdeas(mockIdeas);
     } catch {
@@ -237,7 +237,12 @@ const IdeasPage = () => {
           difficulty: "beginner" as const,
           estimatedViews: "60K-120K",
           trendingScore: 87,
-          tags: ["challenge", "transformation", "lifestyle", input.toLowerCase()],
+          tags: [
+            "challenge",
+            "transformation",
+            "lifestyle",
+            input.toLowerCase(),
+          ],
         },
         {
           title: `${input} Mistakes Everyone Makes (Avoid These!)`,
@@ -268,15 +273,19 @@ const IdeasPage = () => {
       ],
     };
 
-    const templates = ideaTemplates[category as keyof typeof ideaTemplates] || ideaTemplates.general;
-    
+    const templates =
+      ideaTemplates[category as keyof typeof ideaTemplates] ||
+      ideaTemplates.general;
+
     const allIdeas = [...templates, ...additionalIdeas];
-    
+
     return allIdeas.map((template, index) => ({
       ...template,
       id: `idea-${Date.now()}-${index}`,
       category: selectedCategory,
-      thumbnail: `https://images.unsplash.com/photo-${1500000000000 + index}?w=400&h=225&fit=crop`,
+      thumbnail: `https://images.unsplash.com/photo-${
+        1500000000000 + index
+      }?w=400&h=225&fit=crop`,
     }));
   };
 
@@ -362,7 +371,9 @@ const IdeasPage = () => {
                         <FiZap className="text-white text-lg" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-white">Ideas Assistant</h3>
+                        <h3 className="font-bold text-white">
+                          Ideas Assistant
+                        </h3>
                         <p className="text-sm text-gray-400">
                           Ready to brainstorm amazing video ideas
                         </p>
@@ -370,7 +381,9 @@ const IdeasPage = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-gray-400">Creative Mode</span>
+                      <span className="text-sm text-gray-400">
+                        Creative Mode
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -381,7 +394,9 @@ const IdeasPage = () => {
                     <div
                       key={message.id}
                       className={`flex ${
-                        message.type === "user" ? "justify-end" : "justify-start"
+                        message.type === "user"
+                          ? "justify-end"
+                          : "justify-start"
                       }`}
                     >
                       <div
@@ -405,7 +420,9 @@ const IdeasPage = () => {
                                   </h4>
                                   <div className="flex items-center gap-1 text-xs">
                                     <FiTrendingUp className="text-green-400" />
-                                    <span className="text-green-400">{idea.trendingScore}</span>
+                                    <span className="text-green-400">
+                                      {idea.trendingScore}
+                                    </span>
                                   </div>
                                 </div>
                                 <p className="text-xs text-gray-300 mb-2">
@@ -451,7 +468,9 @@ const IdeasPage = () => {
                             style={{ animationDelay: "0.2s" }}
                           ></div>
                         </div>
-                        <span className="text-gray-300">Generating ideas...</span>
+                        <span className="text-gray-300">
+                          Generating ideas...
+                        </span>
                       </div>
                     </div>
                   )}
@@ -538,7 +557,9 @@ const IdeasPage = () => {
                         </h4>
                         <div className="flex items-center gap-1 text-xs">
                           <FiTrendingUp className="text-green-400" />
-                          <span className="text-green-400">{idea.trendingScore}</span>
+                          <span className="text-green-400">
+                            {idea.trendingScore}
+                          </span>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
@@ -725,14 +746,16 @@ const IdeasPage = () => {
                     </div>
                     <div className="flex items-center gap-1 text-sm">
                       <FiTrendingUp className="text-green-400" />
-                      <span className="text-green-400">{idea.trendingScore}</span>
+                      <span className="text-green-400">
+                        {idea.trendingScore}
+                      </span>
                     </div>
                   </div>
 
                   <h3 className="text-lg font-bold text-white mb-3 group-hover:text-yellow-400 transition-colors">
                     {idea.title}
                   </h3>
-                  
+
                   <p className="text-gray-300 text-sm mb-4 leading-relaxed">
                     {idea.description}
                   </p>

@@ -3,6 +3,7 @@
 ## 🚨 CRITICAL ISSUES (Cần sửa ngay)
 
 ### 1. Debug Code trong Production
+
 ```typescript
 // ❌ BAD: Console.log trong production code
 console.log("Login attempt:", formData);
@@ -11,18 +12,19 @@ console.log("Searching for:", query);
 // ✅ GOOD: Sử dụng proper logging service
 const logger = {
   info: (message: string, data?: any) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       console.log(message, data);
     }
   },
   error: (message: string, error?: Error) => {
     console.error(message, error);
     // Send to error tracking service
-  }
+  },
 };
 ```
 
 ### 2. Type Safety Issues
+
 ```typescript
 // ❌ BAD: Sử dụng 'any' type
 const baseData: any = { name: date };
@@ -43,6 +45,7 @@ interface SearchResult {
 ```
 
 ### 3. Missing Error Boundaries
+
 ```typescript
 // ✅ NEEDED: Error boundaries for each major section
 <ErrorBoundary fallback={<ErrorFallback />}>
@@ -53,10 +56,11 @@ interface SearchResult {
 ## 📋 PRODUCTION IMPROVEMENTS NEEDED
 
 ### 1. Environment Configuration
+
 ```typescript
 // 📁 src/config/environment.ts
 export const config = {
-  apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  apiUrl: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
   environment: import.meta.env.MODE,
   isDevelopment: import.meta.env.DEV,
   isProduction: import.meta.env.PROD,
@@ -64,6 +68,7 @@ export const config = {
 ```
 
 ### 2. Error Handling Service
+
 ```typescript
 // 📁 src/services/errorService.ts
 class ErrorService {
@@ -78,17 +83,18 @@ class ErrorService {
 ```
 
 ### 3. API Service Improvements
+
 ```typescript
 // ❌ Current: Basic error handling
 // ✅ NEEDED: Retry logic, request/response interceptors
 class ApiClient {
   private retryAttempts = 3;
   private retryDelay = 1000;
-  
+
   async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     return this.withRetry(() => this.baseRequest(endpoint, options));
   }
-  
+
   private async withRetry<T>(fn: () => Promise<T>): Promise<T> {
     // Implement retry logic
   }
@@ -96,10 +102,11 @@ class ApiClient {
 ```
 
 ### 4. Performance Optimizations Needed
+
 ```typescript
 // ✅ NEEDED: Code splitting for pages
-const DashboardPage = lazy(() => import('../pages/DashboardPage'));
-const OptimizePage = lazy(() => import('../pages/OptimizePage'));
+const DashboardPage = lazy(() => import("../pages/DashboardPage"));
+const OptimizePage = lazy(() => import("../pages/OptimizePage"));
 
 // ✅ NEEDED: Memoization for expensive computations
 const ExpensiveComponent = memo(({ data }: Props) => {
@@ -109,13 +116,14 @@ const ExpensiveComponent = memo(({ data }: Props) => {
 ```
 
 ### 5. State Management
+
 ```typescript
 // 📁 src/store/ (NEEDED)
 // Implement Zustand or Redux Toolkit for complex state
 interface AppStore {
   user: User | null;
-  theme: 'light' | 'dark';
-  language: 'en' | 'vi';
+  theme: "light" | "dark";
+  language: "en" | "vi";
   // ... other global state
 }
 ```
@@ -123,6 +131,7 @@ interface AppStore {
 ## 📁 FOLDER STRUCTURE IMPROVEMENTS
 
 ### Current: ✅ Good
+
 ```
 src/
 ├── components/
@@ -136,6 +145,7 @@ src/
 ```
 
 ### Suggested Additions:
+
 ```
 src/
 ├── components/
@@ -156,16 +166,19 @@ src/
 ## 🧪 TESTING SETUP (Missing)
 
 ### 1. Unit Testing
+
 ```bash
 npm install -D vitest @testing-library/react @testing-library/jest-dom
 ```
 
 ### 2. E2E Testing
+
 ```bash
 npm install -D @playwright/test
 ```
 
 ### 3. Test Structure
+
 ```
 src/
 ├── components/
@@ -181,9 +194,10 @@ src/
 ## 🔒 SECURITY IMPROVEMENTS
 
 ### 1. Environment Variables Validation
+
 ```typescript
 // 📁 src/config/env.ts
-import { z } from 'zod';
+import { z } from "zod";
 
 const envSchema = z.object({
   VITE_API_URL: z.string().url(),
@@ -194,9 +208,10 @@ export const env = envSchema.parse(import.meta.env);
 ```
 
 ### 2. XSS Protection
+
 ```typescript
 // ✅ NEEDED: Input sanitization
-import DOMPurify from 'isomorphic-dompurify';
+import DOMPurify from "isomorphic-dompurify";
 
 const SafeHTML = ({ content }: { content: string }) => (
   <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
@@ -206,13 +221,14 @@ const SafeHTML = ({ content }: { content: string }) => (
 ## 📊 MONITORING & ANALYTICS
 
 ### 1. Performance Monitoring
+
 ```typescript
 // 📁 src/utils/performance.ts
 export const measurePerformance = (name: string, fn: () => void) => {
   const start = performance.now();
   fn();
   const end = performance.now();
-  
+
   if (config.isDevelopment) {
     console.log(`${name} took ${end - start} milliseconds`);
   }
@@ -220,6 +236,7 @@ export const measurePerformance = (name: string, fn: () => void) => {
 ```
 
 ### 2. User Analytics
+
 ```typescript
 // 📁 src/services/analytics.ts
 class Analytics {
@@ -234,6 +251,7 @@ class Analytics {
 ## 🚀 BUILD OPTIMIZATIONS
 
 ### 1. Bundle Analysis
+
 ```json
 // package.json
 {
@@ -244,6 +262,7 @@ class Analytics {
 ```
 
 ### 2. Vite Config Optimizations
+
 ```typescript
 // vite.config.ts
 export default defineConfig({
@@ -251,9 +270,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          ui: ['react-icons'],
+          vendor: ["react", "react-dom"],
+          router: ["react-router-dom"],
+          ui: ["react-icons"],
         },
       },
     },
@@ -265,6 +284,7 @@ export default defineConfig({
 ## ⭐ PRIORITY ACTION ITEMS
 
 ### 🔴 HIGH PRIORITY (Làm ngay)
+
 1. Remove all `console.log` statements
 2. Replace `any` types with proper types
 3. Add error boundaries
@@ -272,6 +292,7 @@ export default defineConfig({
 5. Add loading states for all async operations
 
 ### 🟡 MEDIUM PRIORITY (Tuần tới)
+
 1. Implement proper error handling service
 2. Add code splitting for pages
 3. Set up testing framework
@@ -279,6 +300,7 @@ export default defineConfig({
 5. Implement proper state management
 
 ### 🟢 LOW PRIORITY (Sau này)
+
 1. Add E2E testing
 2. Implement analytics
 3. Add bundle analysis

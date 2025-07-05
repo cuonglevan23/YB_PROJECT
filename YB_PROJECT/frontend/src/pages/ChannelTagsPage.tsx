@@ -30,7 +30,7 @@ interface ChannelTag {
 
 interface SortConfig {
   key: keyof ChannelTag | null;
-  direction: 'asc' | 'desc';
+  direction: "asc" | "desc";
 }
 
 const ChannelTagsPage = () => {
@@ -39,7 +39,10 @@ const ChannelTagsPage = () => {
   const [filteredTags, setFilteredTags] = useState<ChannelTag[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: null, direction: 'asc' });
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    key: null,
+    direction: "asc",
+  });
   const [filterConfig, setFilterConfig] = useState({
     minCount: 0,
     maxCount: 1000,
@@ -166,7 +169,7 @@ const ChannelTagsPage = () => {
     setIsLoading(true);
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       setTags(mockTags);
     } catch (error) {
       console.error("Failed to load channel tags:", error);
@@ -176,12 +179,20 @@ const ChannelTagsPage = () => {
   };
 
   const filterTags = () => {
-    let filtered = tags.filter(tag => {
-      const matchesSearch = tag.tag.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCount = tag.count >= filterConfig.minCount && tag.count <= filterConfig.maxCount;
-      const matchesRank = tag.bestRank >= filterConfig.minRank && tag.bestRank <= filterConfig.maxRank;
-      const matchesScore = tag.overallScore >= filterConfig.minScore && tag.overallScore <= filterConfig.maxScore;
-      
+    let filtered = tags.filter((tag) => {
+      const matchesSearch = tag.tag
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesCount =
+        tag.count >= filterConfig.minCount &&
+        tag.count <= filterConfig.maxCount;
+      const matchesRank =
+        tag.bestRank >= filterConfig.minRank &&
+        tag.bestRank <= filterConfig.maxRank;
+      const matchesScore =
+        tag.overallScore >= filterConfig.minScore &&
+        tag.overallScore <= filterConfig.maxScore;
+
       return matchesSearch && matchesCount && matchesRank && matchesScore;
     });
 
@@ -189,12 +200,12 @@ const ChannelTagsPage = () => {
       filtered.sort((a, b) => {
         const aValue = a[sortConfig.key!];
         const bValue = b[sortConfig.key!];
-        
+
         if (aValue < bValue) {
-          return sortConfig.direction === 'asc' ? -1 : 1;
+          return sortConfig.direction === "asc" ? -1 : 1;
         }
         if (aValue > bValue) {
-          return sortConfig.direction === 'asc' ? 1 : -1;
+          return sortConfig.direction === "asc" ? 1 : -1;
         }
         return 0;
       });
@@ -204,9 +215,9 @@ const ChannelTagsPage = () => {
   };
 
   const handleSort = (key: keyof ChannelTag) => {
-    let direction: 'asc' | 'desc' = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
+    let direction: "asc" | "desc" = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
     }
     setSortConfig({ key, direction });
   };
@@ -215,9 +226,11 @@ const ChannelTagsPage = () => {
     if (sortConfig.key !== key) {
       return <FiMinus className="w-3 h-3 text-gray-400" />;
     }
-    return sortConfig.direction === 'asc' 
-      ? <FiArrowUp className="w-3 h-3 text-blue-400" />
-      : <FiArrowDown className="w-3 h-3 text-blue-400" />;
+    return sortConfig.direction === "asc" ? (
+      <FiArrowUp className="w-3 h-3 text-blue-400" />
+    ) : (
+      <FiArrowDown className="w-3 h-3 text-blue-400" />
+    );
   };
 
   const getScoreColor = (score: number) => {
@@ -240,23 +253,33 @@ const ChannelTagsPage = () => {
 
   const exportTags = () => {
     const csvContent = [
-      ['Tag', 'Count', 'Best Rank', 'Ranked Count', 'Search Volume', 'Competition Score', 'Overall Score'].join(','),
-      ...filteredTags.map(tag => [
-        `"${tag.tag}"`,
-        tag.count,
-        tag.bestRank,
-        tag.rankedCount,
-        tag.searchVolume,
-        tag.competitionScore,
-        tag.overallScore
-      ].join(','))
-    ].join('\n');
+      [
+        "Tag",
+        "Count",
+        "Best Rank",
+        "Ranked Count",
+        "Search Volume",
+        "Competition Score",
+        "Overall Score",
+      ].join(","),
+      ...filteredTags.map((tag) =>
+        [
+          `"${tag.tag}"`,
+          tag.count,
+          tag.bestRank,
+          tag.rankedCount,
+          tag.searchVolume,
+          tag.competitionScore,
+          tag.overallScore,
+        ].join(",")
+      ),
+    ].join("\n");
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const blob = new Blob([csvContent], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = `${channelName.replace(/[^a-zA-Z0-9]/g, '_')}_tags.csv`;
+    a.download = `${channelName.replace(/[^a-zA-Z0-9]/g, "_")}_tags.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -274,16 +297,20 @@ const ChannelTagsPage = () => {
                 <FiTag className="text-white text-xl" />
               </div>
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-white">Channel-wide Tags Analysis</h1>
-                <p className="text-gray-300">Analyze tag performance across your entire channel</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-white">
+                  Channel-wide Tags Analysis
+                </h1>
+                <p className="text-gray-300">
+                  Analyze tag performance across your entire channel
+                </p>
               </div>
             </div>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowFilters(!showFilters)}
                 className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
-                  showFilters 
-                    ? "bg-blue-600 text-white" 
+                  showFilters
+                    ? "bg-blue-600 text-white"
                     : "bg-gray-700/50 text-gray-300 hover:bg-gray-600/50"
                 }`}
               >
@@ -313,7 +340,8 @@ const ChannelTagsPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-bold text-white mb-1">
-                  Found {filteredTags.length} channel-wide tags for {channelName}
+                  Found {filteredTags.length} channel-wide tags for{" "}
+                  {channelName}
                 </h3>
                 <p className="text-gray-400 text-sm">
                   Analyzing tag performance metrics across all videos
@@ -356,58 +384,94 @@ const ChannelTagsPage = () => {
               <h4 className="text-white font-medium mb-3">Filter Options</h4>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm text-gray-300 mb-2">Count Range</label>
+                  <label className="block text-sm text-gray-300 mb-2">
+                    Count Range
+                  </label>
                   <div className="flex gap-2">
                     <input
                       type="number"
                       placeholder="Min"
                       value={filterConfig.minCount}
-                      onChange={(e) => setFilterConfig(prev => ({ ...prev, minCount: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilterConfig((prev) => ({
+                          ...prev,
+                          minCount: Number(e.target.value),
+                        }))
+                      }
                       className="flex-1 px-3 py-2 bg-gray-600/50 border border-gray-500 rounded text-white text-sm"
                     />
                     <input
                       type="number"
                       placeholder="Max"
                       value={filterConfig.maxCount}
-                      onChange={(e) => setFilterConfig(prev => ({ ...prev, maxCount: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilterConfig((prev) => ({
+                          ...prev,
+                          maxCount: Number(e.target.value),
+                        }))
+                      }
                       className="flex-1 px-3 py-2 bg-gray-600/50 border border-gray-500 rounded text-white text-sm"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-300 mb-2">Rank Range</label>
+                  <label className="block text-sm text-gray-300 mb-2">
+                    Rank Range
+                  </label>
                   <div className="flex gap-2">
                     <input
                       type="number"
                       placeholder="Min"
                       value={filterConfig.minRank}
-                      onChange={(e) => setFilterConfig(prev => ({ ...prev, minRank: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilterConfig((prev) => ({
+                          ...prev,
+                          minRank: Number(e.target.value),
+                        }))
+                      }
                       className="flex-1 px-3 py-2 bg-gray-600/50 border border-gray-500 rounded text-white text-sm"
                     />
                     <input
                       type="number"
                       placeholder="Max"
                       value={filterConfig.maxRank}
-                      onChange={(e) => setFilterConfig(prev => ({ ...prev, maxRank: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilterConfig((prev) => ({
+                          ...prev,
+                          maxRank: Number(e.target.value),
+                        }))
+                      }
                       className="flex-1 px-3 py-2 bg-gray-600/50 border border-gray-500 rounded text-white text-sm"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-300 mb-2">Score Range</label>
+                  <label className="block text-sm text-gray-300 mb-2">
+                    Score Range
+                  </label>
                   <div className="flex gap-2">
                     <input
                       type="number"
                       placeholder="Min"
                       value={filterConfig.minScore}
-                      onChange={(e) => setFilterConfig(prev => ({ ...prev, minScore: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilterConfig((prev) => ({
+                          ...prev,
+                          minScore: Number(e.target.value),
+                        }))
+                      }
                       className="flex-1 px-3 py-2 bg-gray-600/50 border border-gray-500 rounded text-white text-sm"
                     />
                     <input
                       type="number"
                       placeholder="Max"
                       value={filterConfig.maxScore}
-                      onChange={(e) => setFilterConfig(prev => ({ ...prev, maxScore: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilterConfig((prev) => ({
+                          ...prev,
+                          maxScore: Number(e.target.value),
+                        }))
+                      }
                       className="flex-1 px-3 py-2 bg-gray-600/50 border border-gray-500 rounded text-white text-sm"
                     />
                   </div>
@@ -428,7 +492,9 @@ const ChannelTagsPage = () => {
               </div>
               <div>
                 <p className="text-gray-400 text-sm">Total Tags</p>
-                <p className="text-2xl font-bold text-white">{filteredTags.length}</p>
+                <p className="text-2xl font-bold text-white">
+                  {filteredTags.length}
+                </p>
               </div>
             </div>
           </div>
@@ -440,10 +506,14 @@ const ChannelTagsPage = () => {
               <div>
                 <p className="text-gray-400 text-sm">Avg Score</p>
                 <p className="text-2xl font-bold text-white">
-                  {filteredTags.length > 0 
-                    ? (filteredTags.reduce((sum, tag) => sum + tag.overallScore, 0) / filteredTags.length).toFixed(1)
-                    : "0"
-                  }
+                  {filteredTags.length > 0
+                    ? (
+                        filteredTags.reduce(
+                          (sum, tag) => sum + tag.overallScore,
+                          0
+                        ) / filteredTags.length
+                      ).toFixed(1)
+                    : "0"}
                 </p>
               </div>
             </div>
@@ -456,10 +526,9 @@ const ChannelTagsPage = () => {
               <div>
                 <p className="text-gray-400 text-sm">Top Rank</p>
                 <p className="text-2xl font-bold text-white">
-                  {filteredTags.length > 0 
-                    ? Math.min(...filteredTags.map(tag => tag.bestRank))
-                    : "—"
-                  }
+                  {filteredTags.length > 0
+                    ? Math.min(...filteredTags.map((tag) => tag.bestRank))
+                    : "—"}
                 </p>
               </div>
             </div>
@@ -472,7 +541,9 @@ const ChannelTagsPage = () => {
               <div>
                 <p className="text-gray-400 text-sm">Total Volume</p>
                 <p className="text-2xl font-bold text-white">
-                  {filteredTags.reduce((sum, tag) => sum + tag.searchVolume, 0).toFixed(1)}
+                  {filteredTags
+                    .reduce((sum, tag) => sum + tag.searchVolume, 0)
+                    .toFixed(1)}
                 </p>
               </div>
             </div>
@@ -495,71 +566,71 @@ const ChannelTagsPage = () => {
                   <tr>
                     <th className="text-left p-4 text-gray-300 font-medium">
                       <button
-                        onClick={() => handleSort('tag')}
+                        onClick={() => handleSort("tag")}
                         className="flex items-center gap-2 hover:text-white transition-colors"
                       >
                         Tag
-                        {getSortIcon('tag')}
+                        {getSortIcon("tag")}
                       </button>
                     </th>
                     <th className="text-center p-4 text-gray-300 font-medium">
                       <button
-                        onClick={() => handleSort('count')}
+                        onClick={() => handleSort("count")}
                         className="flex items-center gap-2 hover:text-white transition-colors mx-auto"
                       >
                         Count
                         <FiInfo className="w-3 h-3 text-gray-500" />
-                        {getSortIcon('count')}
+                        {getSortIcon("count")}
                       </button>
                     </th>
                     <th className="text-center p-4 text-gray-300 font-medium">
                       <button
-                        onClick={() => handleSort('bestRank')}
+                        onClick={() => handleSort("bestRank")}
                         className="flex items-center gap-2 hover:text-white transition-colors mx-auto"
                       >
                         Best Rank
                         <FiInfo className="w-3 h-3 text-gray-500" />
-                        {getSortIcon('bestRank')}
+                        {getSortIcon("bestRank")}
                       </button>
                     </th>
                     <th className="text-center p-4 text-gray-300 font-medium">
                       <button
-                        onClick={() => handleSort('rankedCount')}
+                        onClick={() => handleSort("rankedCount")}
                         className="flex items-center gap-2 hover:text-white transition-colors mx-auto"
                       >
                         Ranked Count
                         <FiInfo className="w-3 h-3 text-gray-500" />
-                        {getSortIcon('rankedCount')}
+                        {getSortIcon("rankedCount")}
                       </button>
                     </th>
                     <th className="text-center p-4 text-gray-300 font-medium">
                       <button
-                        onClick={() => handleSort('searchVolume')}
+                        onClick={() => handleSort("searchVolume")}
                         className="flex items-center gap-2 hover:text-white transition-colors mx-auto"
                       >
                         Search Volume
                         <FiInfo className="w-3 h-3 text-gray-500" />
-                        {getSortIcon('searchVolume')}
+                        {getSortIcon("searchVolume")}
                       </button>
                     </th>
                     <th className="text-center p-4 text-gray-300 font-medium">
                       <button
-                        onClick={() => handleSort('competitionScore')}
+                        onClick={() => handleSort("competitionScore")}
                         className="flex items-center gap-2 hover:text-white transition-colors mx-auto"
                       >
                         Competition Score
                         <FiInfo className="w-3 h-3 text-gray-500" />
-                        {getSortIcon('competitionScore')}
+                        {getSortIcon("competitionScore")}
                       </button>
                     </th>
                     <th className="text-center p-4 text-gray-300 font-medium">
                       <button
-                        onClick={() => handleSort('overallScore')}
+                        onClick={() => handleSort("overallScore")}
                         className="flex items-center gap-2 hover:text-white transition-colors mx-auto"
                       >
                         Overall Score
                         <FiInfo className="w-3 h-3 text-gray-500" />
-                        {getSortIcon('overallScore')}
+                        {getSortIcon("overallScore")}
                       </button>
                     </th>
                   </tr>
@@ -569,20 +640,28 @@ const ChannelTagsPage = () => {
                     <tr
                       key={tag.id}
                       className={`border-t border-gray-700/50 hover:bg-gray-700/30 transition-colors ${
-                        index % 2 === 0 ? 'bg-gray-800/20' : ''
+                        index % 2 === 0 ? "bg-gray-800/20" : ""
                       }`}
                     >
                       <td className="p-4">
                         <div className="flex items-center gap-3">
                           <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
-                          <span className="text-white font-medium">{tag.tag}</span>
+                          <span className="text-white font-medium">
+                            {tag.tag}
+                          </span>
                         </div>
                       </td>
                       <td className="p-4 text-center">
-                        <span className="text-white font-semibold">{tag.count}</span>
+                        <span className="text-white font-semibold">
+                          {tag.count}
+                        </span>
                       </td>
                       <td className="p-4 text-center">
-                        <span className={`font-semibold ${getRankColor(tag.bestRank)}`}>
+                        <span
+                          className={`font-semibold ${getRankColor(
+                            tag.bestRank
+                          )}`}
+                        >
                           {tag.bestRank}
                         </span>
                       </td>
@@ -593,13 +672,21 @@ const ChannelTagsPage = () => {
                         <span className="text-white">{tag.searchVolume}</span>
                       </td>
                       <td className="p-4 text-center">
-                        <span className={`font-semibold ${getCompetitionColor(tag.competitionScore)}`}>
+                        <span
+                          className={`font-semibold ${getCompetitionColor(
+                            tag.competitionScore
+                          )}`}
+                        >
                           {tag.competitionScore.toFixed(2)}
                         </span>
                       </td>
                       <td className="p-4 text-center">
                         <div className="flex items-center justify-center gap-2">
-                          <span className={`font-bold ${getScoreColor(tag.overallScore)}`}>
+                          <span
+                            className={`font-bold ${getScoreColor(
+                              tag.overallScore
+                            )}`}
+                          >
                             {tag.overallScore.toFixed(2)}
                           </span>
                           {tag.overallScore >= 60 && (
@@ -615,9 +702,13 @@ const ChannelTagsPage = () => {
               {filteredTags.length === 0 && !isLoading && (
                 <div className="p-12 text-center">
                   <FiTag className="mx-auto text-4xl text-gray-600 mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">No tags found</h3>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    No tags found
+                  </h3>
                   <p className="text-gray-400">
-                    {searchTerm ? "Try adjusting your search or filter criteria" : "No channel tags available"}
+                    {searchTerm
+                      ? "Try adjusting your search or filter criteria"
+                      : "No channel tags available"}
                   </p>
                 </div>
               )}
@@ -642,15 +733,21 @@ const ChannelTagsPage = () => {
             </div>
             <div>
               <h4 className="text-white font-medium mb-2">Ranked Count</h4>
-              <p className="text-gray-400">Number of videos that ranked for this tag</p>
+              <p className="text-gray-400">
+                Number of videos that ranked for this tag
+              </p>
             </div>
             <div>
               <h4 className="text-white font-medium mb-2">Search Volume</h4>
-              <p className="text-gray-400">Monthly search volume (in thousands)</p>
+              <p className="text-gray-400">
+                Monthly search volume (in thousands)
+              </p>
             </div>
             <div>
               <h4 className="text-white font-medium mb-2">Competition Score</h4>
-              <p className="text-gray-400">Competition difficulty (lower is better)</p>
+              <p className="text-gray-400">
+                Competition difficulty (lower is better)
+              </p>
             </div>
             <div>
               <h4 className="text-white font-medium mb-2">Overall Score</h4>

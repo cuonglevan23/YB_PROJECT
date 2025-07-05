@@ -162,8 +162,12 @@ const GenerateVideoPage = () => {
       // Simulate AI response
       await new Promise((resolve) => setTimeout(resolve, 3000));
 
-      const mockContent = generateMockVideoContent(currentInput, selectedCategory, targetDuration);
-      
+      const mockContent = generateMockVideoContent(
+        currentInput,
+        selectedCategory,
+        targetDuration
+      );
+
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         type: "assistant",
@@ -175,7 +179,9 @@ const GenerateVideoPage = () => {
       setChatMessages((prev) => [...prev, assistantMessage]);
       setVideoContent([mockContent]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to generate video content");
+      setError(
+        err instanceof Error ? err.message : "Failed to generate video content"
+      );
     } finally {
       setIsChatting(false);
     }
@@ -193,8 +199,12 @@ const GenerateVideoPage = () => {
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 3000));
-      
-      const mockContent = generateMockVideoContent(videoTopic, selectedCategory, targetDuration);
+
+      const mockContent = generateMockVideoContent(
+        videoTopic,
+        selectedCategory,
+        targetDuration
+      );
       setVideoContent([mockContent]);
     } catch {
       setError("Failed to generate video content. Please try again.");
@@ -203,7 +213,11 @@ const GenerateVideoPage = () => {
     }
   };
 
-  const generateMockVideoContent = (topic: string, category: string, duration: number): GeneratedVideoContent => {
+  const generateMockVideoContent = (
+    topic: string,
+    category: string,
+    duration: number
+  ): GeneratedVideoContent => {
     const titles = [
       `${topic} - Complete Guide for Beginners`,
       `How to Master ${topic} in ${duration} Minutes`,
@@ -213,13 +227,37 @@ const GenerateVideoPage = () => {
     ];
 
     const descriptions = [
-      `In this comprehensive guide, we'll cover everything you need to know about ${topic}. Perfect for beginners and those looking to improve their understanding.\n\n🎯 What you'll learn:\n• Key concepts and fundamentals\n• Step-by-step instructions\n• Pro tips and best practices\n• Common mistakes to avoid\n\n⏰ Timestamps:\n0:00 Introduction\n1:30 Getting Started\n3:45 Main Content\n${duration-2}:00 Summary & Next Steps\n\n💡 Don't forget to like and subscribe for more helpful content!`,
+      `In this comprehensive guide, we'll cover everything you need to know about ${topic}. Perfect for beginners and those looking to improve their understanding.\n\n🎯 What you'll learn:\n• Key concepts and fundamentals\n• Step-by-step instructions\n• Pro tips and best practices\n• Common mistakes to avoid\n\n⏰ Timestamps:\n0:00 Introduction\n1:30 Getting Started\n3:45 Main Content\n${
+        duration - 2
+      }:00 Summary & Next Steps\n\n💡 Don't forget to like and subscribe for more helpful content!`,
       `Master ${topic} with this easy-to-follow tutorial! Whether you're a complete beginner or looking to level up your skills, this video has something for everyone.\n\n🔥 Key highlights:\n• Practical examples\n• Expert insights\n• Actionable tips\n• Real-world applications\n\n📚 Resources mentioned:\n• Free templates (link in description)\n• Recommended tools\n• Further reading\n\n👍 If this helped you, please like and share with others who might benefit!`,
     ];
 
     const tagSets = [
-      [topic.toLowerCase(), category, "tutorial", "beginner", "guide", "2025", "how to", "tips", "learn", "education"],
-      [topic.toLowerCase(), category, "explained", "simple", "easy", "step by step", "complete", "ultimate", "master", "skills"],
+      [
+        topic.toLowerCase(),
+        category,
+        "tutorial",
+        "beginner",
+        "guide",
+        "2025",
+        "how to",
+        "tips",
+        "learn",
+        "education",
+      ],
+      [
+        topic.toLowerCase(),
+        category,
+        "explained",
+        "simple",
+        "easy",
+        "step by step",
+        "complete",
+        "ultimate",
+        "master",
+        "skills",
+      ],
     ];
 
     const hooks = [
@@ -267,12 +305,21 @@ const GenerateVideoPage = () => {
       hook: hooks[selectedIndex],
       outline: outlines[selectedIndex],
       thumbnail: {
-        url: `https://images.unsplash.com/photo-${1500000000000 + selectedIndex}?w=1280&h=720&fit=crop`,
+        url: `https://images.unsplash.com/photo-${
+          1500000000000 + selectedIndex
+        }?w=1280&h=720&fit=crop`,
         alt: `${topic} tutorial thumbnail`,
       },
       metadata: {
-        estimatedViews: `${Math.floor(Math.random() * 50) + 20}K-${Math.floor(Math.random() * 100) + 50}K`,
-        difficulty: duration < 10 ? "beginner" : duration < 20 ? "intermediate" : "advanced",
+        estimatedViews: `${Math.floor(Math.random() * 50) + 20}K-${
+          Math.floor(Math.random() * 100) + 50
+        }K`,
+        difficulty:
+          duration < 10
+            ? "beginner"
+            : duration < 20
+            ? "intermediate"
+            : "advanced",
         duration: `${duration} minutes`,
         category: category,
       },
@@ -327,7 +374,10 @@ METADATA:
     const element = document.createElement("a");
     const file = new Blob([fullContent], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
-    element.download = `${content.title.replace(/[^a-zA-Z0-9]/g, "_")}_content.txt`;
+    element.download = `${content.title.replace(
+      /[^a-zA-Z0-9]/g,
+      "_"
+    )}_content.txt`;
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
@@ -345,10 +395,14 @@ METADATA:
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "beginner": return "bg-green-500";
-      case "intermediate": return "bg-yellow-500";
-      case "advanced": return "bg-red-500";
-      default: return "bg-gray-500";
+      case "beginner":
+        return "bg-green-500";
+      case "intermediate":
+        return "bg-yellow-500";
+      case "advanced":
+        return "bg-red-500";
+      default:
+        return "bg-gray-500";
     }
   };
 
@@ -362,7 +416,8 @@ METADATA:
             AI Video Generator
           </h1>
           <p className="text-gray-300 text-lg">
-            Create complete video content with optimized titles, descriptions, tags, hooks, and thumbnails
+            Create complete video content with optimized titles, descriptions,
+            tags, hooks, and thumbnails
           </p>
         </div>
       </div>
@@ -411,7 +466,9 @@ METADATA:
                         <FiVideo className="text-white text-lg" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-white">Video Assistant</h3>
+                        <h3 className="font-bold text-white">
+                          Video Assistant
+                        </h3>
                         <p className="text-sm text-gray-400">
                           Ready to create your complete video content
                         </p>
@@ -419,7 +476,9 @@ METADATA:
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-gray-400">Creative Mode</span>
+                      <span className="text-sm text-gray-400">
+                        Creative Mode
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -430,7 +489,9 @@ METADATA:
                     <div
                       key={message.id}
                       className={`flex ${
-                        message.type === "user" ? "justify-end" : "justify-start"
+                        message.type === "user"
+                          ? "justify-end"
+                          : "justify-start"
                       }`}
                     >
                       <div
@@ -444,9 +505,15 @@ METADATA:
                         {message.videoContent && (
                           <div className="mt-4 p-4 bg-gray-800/50 rounded-lg border border-gray-600/50">
                             <div className="flex items-center justify-between mb-3">
-                              <h4 className="font-bold text-white">{message.videoContent.title}</h4>
+                              <h4 className="font-bold text-white">
+                                {message.videoContent.title}
+                              </h4>
                               <div className="flex items-center gap-2">
-                                <span className={`text-xs px-2 py-1 rounded ${getSeoColor(message.videoContent.seoScore)}`}>
+                                <span
+                                  className={`text-xs px-2 py-1 rounded ${getSeoColor(
+                                    message.videoContent.seoScore
+                                  )}`}
+                                >
                                   SEO {message.videoContent.seoScore}/100
                                 </span>
                                 <span className="text-xs bg-gray-600/50 text-gray-300 px-2 py-1 rounded">
@@ -457,14 +524,22 @@ METADATA:
                             <div className="text-sm text-gray-300 space-y-2">
                               <div>
                                 <strong className="text-blue-400">Hook:</strong>
-                                <p className="text-xs mt-1 italic">{message.videoContent.hook.substring(0, 80)}...</p>
+                                <p className="text-xs mt-1 italic">
+                                  {message.videoContent.hook.substring(0, 80)}
+                                  ...
+                                </p>
                               </div>
                               <div className="flex items-center justify-between">
                                 <span className="text-xs text-gray-400">
-                                  {message.videoContent.tags.slice(0, 3).map(tag => `#${tag}`).join(" ")}
+                                  {message.videoContent.tags
+                                    .slice(0, 3)
+                                    .map((tag) => `#${tag}`)
+                                    .join(" ")}
                                 </span>
                                 <button
-                                  onClick={() => downloadContent(message.videoContent!)}
+                                  onClick={() =>
+                                    downloadContent(message.videoContent!)
+                                  }
                                   className="text-xs bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 px-3 py-1 rounded transition-all flex items-center gap-1"
                                 >
                                   <FiDownload />
@@ -494,7 +569,9 @@ METADATA:
                             style={{ animationDelay: "0.2s" }}
                           ></div>
                         </div>
-                        <span className="text-gray-300">Creating your video content...</span>
+                        <span className="text-gray-300">
+                          Creating your video content...
+                        </span>
                       </div>
                     </div>
                   )}
@@ -583,7 +660,9 @@ METADATA:
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{duration.label}</span>
-                        <span className="text-xs opacity-75">{duration.views}</span>
+                        <span className="text-xs opacity-75">
+                          {duration.views}
+                        </span>
                       </div>
                     </button>
                   ))}
@@ -666,7 +745,9 @@ METADATA:
                       </label>
                       <select
                         value={targetDuration}
-                        onChange={(e) => setTargetDuration(Number(e.target.value))}
+                        onChange={(e) =>
+                          setTargetDuration(Number(e.target.value))
+                        }
                         className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                         disabled={isGenerating}
                       >
@@ -715,22 +796,30 @@ METADATA:
                   <FiZap className="text-yellow-400" />
                   What You'll Get
                 </h3>
-                
+
                 <div className="space-y-4">
                   <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
                     <div className="flex items-center gap-2 mb-2">
                       <FiEdit3 className="text-blue-400" />
-                      <span className="font-medium text-white">Optimized Title</span>
+                      <span className="font-medium text-white">
+                        Optimized Title
+                      </span>
                     </div>
-                    <p className="text-xs text-gray-400">SEO-friendly titles that drive clicks</p>
+                    <p className="text-xs text-gray-400">
+                      SEO-friendly titles that drive clicks
+                    </p>
                   </div>
 
                   <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
                     <div className="flex items-center gap-2 mb-2">
                       <FiFileText className="text-green-400" />
-                      <span className="font-medium text-white">Description</span>
+                      <span className="font-medium text-white">
+                        Description
+                      </span>
                     </div>
-                    <p className="text-xs text-gray-400">Detailed descriptions with timestamps</p>
+                    <p className="text-xs text-gray-400">
+                      Detailed descriptions with timestamps
+                    </p>
                   </div>
 
                   <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
@@ -738,15 +827,21 @@ METADATA:
                       <FiTag className="text-purple-400" />
                       <span className="font-medium text-white">Smart Tags</span>
                     </div>
-                    <p className="text-xs text-gray-400">Trending tags for better discoverability</p>
+                    <p className="text-xs text-gray-400">
+                      Trending tags for better discoverability
+                    </p>
                   </div>
 
                   <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
                     <div className="flex items-center gap-2 mb-2">
                       <FiZap className="text-yellow-400" />
-                      <span className="font-medium text-white">Engaging Hook</span>
+                      <span className="font-medium text-white">
+                        Engaging Hook
+                      </span>
                     </div>
-                    <p className="text-xs text-gray-400">Captivating opening lines</p>
+                    <p className="text-xs text-gray-400">
+                      Captivating opening lines
+                    </p>
                   </div>
 
                   <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
@@ -754,7 +849,9 @@ METADATA:
                       <FiImage className="text-pink-400" />
                       <span className="font-medium text-white">Thumbnail</span>
                     </div>
-                    <p className="text-xs text-gray-400">Eye-catching thumbnail suggestions</p>
+                    <p className="text-xs text-gray-400">
+                      Eye-catching thumbnail suggestions
+                    </p>
                   </div>
 
                   <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
@@ -762,7 +859,9 @@ METADATA:
                       <FiUsers className="text-orange-400" />
                       <span className="font-medium text-white">Outline</span>
                     </div>
-                    <p className="text-xs text-gray-400">Structured video outline</p>
+                    <p className="text-xs text-gray-400">
+                      Structured video outline
+                    </p>
                   </div>
                 </div>
               </div>
@@ -808,7 +907,11 @@ METADATA:
                         Thumbnail
                       </h3>
                       <button
-                        onClick={() => setActiveSection(activeSection === "thumbnail" ? null : "thumbnail")}
+                        onClick={() =>
+                          setActiveSection(
+                            activeSection === "thumbnail" ? null : "thumbnail"
+                          )
+                        }
                         className="text-gray-400 hover:text-white p-2"
                       >
                         <FiEye />
@@ -824,16 +927,32 @@ METADATA:
                       </div>
                       <div className="space-y-4">
                         <div className="flex items-center gap-4">
-                          <div className={`w-3 h-3 rounded-full ${getDifficultyColor(content.metadata.difficulty)}`}></div>
-                          <span className="text-white font-medium capitalize">{content.metadata.difficulty}</span>
-                          <span className="text-gray-400">{content.metadata.duration}</span>
+                          <div
+                            className={`w-3 h-3 rounded-full ${getDifficultyColor(
+                              content.metadata.difficulty
+                            )}`}
+                          ></div>
+                          <span className="text-white font-medium capitalize">
+                            {content.metadata.difficulty}
+                          </span>
+                          <span className="text-gray-400">
+                            {content.metadata.duration}
+                          </span>
                         </div>
                         <div className="flex items-center gap-2">
                           <FiTrendingUp className="text-green-400" />
-                          <span className="text-white">Est. Views: {content.metadata.estimatedViews}</span>
+                          <span className="text-white">
+                            Est. Views: {content.metadata.estimatedViews}
+                          </span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className={`font-bold ${getSeoColor(content.seoScore)}`}>SEO Score: {content.seoScore}/100</span>
+                          <span
+                            className={`font-bold ${getSeoColor(
+                              content.seoScore
+                            )}`}
+                          >
+                            SEO Score: {content.seoScore}/100
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -856,11 +975,18 @@ METADATA:
                     </div>
                     <p className="text-white text-lg mb-3">{content.title}</p>
                     <div className="bg-gray-800/50 rounded-lg p-3">
-                      <h4 className="text-sm font-medium text-gray-300 mb-2">Alternative titles:</h4>
+                      <h4 className="text-sm font-medium text-gray-300 mb-2">
+                        Alternative titles:
+                      </h4>
                       <div className="space-y-1">
                         {content.suggestions.title.map((title, index) => (
-                          <div key={index} className="flex items-center justify-between">
-                            <span className="text-gray-400 text-sm">{title}</span>
+                          <div
+                            key={index}
+                            className="flex items-center justify-between"
+                          >
+                            <span className="text-gray-400 text-sm">
+                              {title}
+                            </span>
                             <button
                               onClick={() => copyToClipboard(title)}
                               className="text-gray-500 hover:text-white p-1"
@@ -889,7 +1015,9 @@ METADATA:
                       </button>
                     </div>
                     <div className="bg-gray-800/50 rounded-lg p-4">
-                      <pre className="text-gray-300 text-sm whitespace-pre-wrap">{content.description}</pre>
+                      <pre className="text-gray-300 text-sm whitespace-pre-wrap">
+                        {content.description}
+                      </pre>
                     </div>
                   </div>
 
@@ -937,7 +1065,9 @@ METADATA:
                       </button>
                     </div>
                     <div className="bg-gray-800/50 rounded-lg p-4">
-                      <p className="text-gray-300 text-sm italic">"{content.hook}"</p>
+                      <p className="text-gray-300 text-sm italic">
+                        "{content.hook}"
+                      </p>
                     </div>
                   </div>
 
@@ -949,7 +1079,9 @@ METADATA:
                         Video Outline
                       </h3>
                       <button
-                        onClick={() => copyToClipboard(content.outline.join("\n"))}
+                        onClick={() =>
+                          copyToClipboard(content.outline.join("\n"))
+                        }
                         className="bg-orange-600/20 hover:bg-orange-600/30 text-orange-400 px-3 py-1 rounded text-sm flex items-center gap-1"
                       >
                         <FiCopy />
@@ -959,7 +1091,10 @@ METADATA:
                     <div className="bg-gray-800/50 rounded-lg p-4">
                       <ol className="space-y-2">
                         {content.outline.map((item, index) => (
-                          <li key={index} className="text-gray-300 text-sm flex items-start gap-3">
+                          <li
+                            key={index}
+                            className="text-gray-300 text-sm flex items-start gap-3"
+                          >
                             <span className="bg-orange-600/20 text-orange-400 px-2 py-1 rounded text-xs font-medium min-w-[24px] text-center">
                               {index + 1}
                             </span>

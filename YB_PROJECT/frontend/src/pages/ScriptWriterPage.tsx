@@ -160,7 +160,9 @@ const ScriptWriterPage = () => {
         throw new Error(response.message || "Failed to generate script");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to generate script");
+      setError(
+        err instanceof Error ? err.message : "Failed to generate script"
+      );
     } finally {
       setIsChatting(false);
     }
@@ -269,7 +271,9 @@ const ScriptWriterPage = () => {
                         <FiEdit3 className="text-white text-lg" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-white">Script Assistant</h3>
+                        <h3 className="font-bold text-white">
+                          Script Assistant
+                        </h3>
                         <p className="text-sm text-gray-400">
                           Ready to write your perfect video script
                         </p>
@@ -277,7 +281,9 @@ const ScriptWriterPage = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-gray-400">Writing Mode</span>
+                      <span className="text-sm text-gray-400">
+                        Writing Mode
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -288,7 +294,9 @@ const ScriptWriterPage = () => {
                     <div
                       key={message.id}
                       className={`flex ${
-                        message.type === "user" ? "justify-end" : "justify-start"
+                        message.type === "user"
+                          ? "justify-end"
+                          : "justify-start"
                       }`}
                     >
                       <div
@@ -302,7 +310,9 @@ const ScriptWriterPage = () => {
                         {message.script && (
                           <div className="mt-4 p-4 bg-gray-800/50 rounded-lg border border-gray-600/50">
                             <div className="flex items-center justify-between mb-3">
-                              <h4 className="font-bold text-white">{message.script.title}</h4>
+                              <h4 className="font-bold text-white">
+                                {message.script.title}
+                              </h4>
                               <div className="flex items-center gap-2">
                                 <span className="text-xs bg-purple-600/20 text-purple-400 px-2 py-1 rounded">
                                   {message.script.duration} min
@@ -314,13 +324,21 @@ const ScriptWriterPage = () => {
                             </div>
                             <div className="text-sm text-gray-300 space-y-2">
                               <div>
-                                <strong className="text-purple-400">Hook:</strong>
-                                <p className="text-xs mt-1 italic">{message.script.hook.substring(0, 100)}...</p>
+                                <strong className="text-purple-400">
+                                  Hook:
+                                </strong>
+                                <p className="text-xs mt-1 italic">
+                                  {message.script.hook.substring(0, 100)}...
+                                </p>
                               </div>
                               <div className="flex items-center justify-between">
-                                <span className="text-xs text-gray-400">Tone: {message.script.tone}</span>
+                                <span className="text-xs text-gray-400">
+                                  Tone: {message.script.tone}
+                                </span>
                                 <button
-                                  onClick={() => downloadScript(message.script!)}
+                                  onClick={() =>
+                                    downloadScript(message.script!)
+                                  }
                                   className="text-xs bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 px-3 py-1 rounded transition-all flex items-center gap-1"
                                 >
                                   <FiDownload />
@@ -350,7 +368,9 @@ const ScriptWriterPage = () => {
                             style={{ animationDelay: "0.2s" }}
                           ></div>
                         </div>
-                        <span className="text-gray-300">Writing your script...</span>
+                        <span className="text-gray-300">
+                          Writing your script...
+                        </span>
                       </div>
                     </div>
                   )}
@@ -439,7 +459,9 @@ const ScriptWriterPage = () => {
                     >
                       <div className="flex items-center justify-between">
                         <span className="font-medium">{duration.label}</span>
-                        <span className="text-xs opacity-75">{duration.wordCount}</span>
+                        <span className="text-xs opacity-75">
+                          {duration.wordCount}
+                        </span>
                       </div>
                     </button>
                   ))}
@@ -522,7 +544,9 @@ const ScriptWriterPage = () => {
                       </label>
                       <select
                         value={selectedDuration}
-                        onChange={(e) => setSelectedDuration(Number(e.target.value))}
+                        onChange={(e) =>
+                          setSelectedDuration(Number(e.target.value))
+                        }
                         className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 text-white"
                         disabled={isGenerating}
                       >
@@ -571,21 +595,26 @@ const ScriptWriterPage = () => {
                   <FiFileText className="text-purple-400" />
                   Script Settings
                 </h3>
-                
+
                 <div className="space-y-4">
                   <div>
-                    <label className="text-sm text-gray-300 mb-2 block">Selected Tone</label>
+                    <label className="text-sm text-gray-300 mb-2 block">
+                      Selected Tone
+                    </label>
                     <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
                       <div className="flex items-center gap-2">
                         <span className="text-lg">
-                          {tones.find(t => t.id === selectedTone)?.icon}
+                          {tones.find((t) => t.id === selectedTone)?.icon}
                         </span>
                         <div>
                           <div className="text-white font-medium">
-                            {tones.find(t => t.id === selectedTone)?.name}
+                            {tones.find((t) => t.id === selectedTone)?.name}
                           </div>
                           <div className="text-xs text-gray-400">
-                            {tones.find(t => t.id === selectedTone)?.description}
+                            {
+                              tones.find((t) => t.id === selectedTone)
+                                ?.description
+                            }
                           </div>
                         </div>
                       </div>
@@ -593,10 +622,14 @@ const ScriptWriterPage = () => {
                   </div>
 
                   <div>
-                    <label className="text-sm text-gray-300 mb-2 block">Video Length</label>
+                    <label className="text-sm text-gray-300 mb-2 block">
+                      Video Length
+                    </label>
                     <div className="p-3 bg-gray-700/30 rounded-lg border border-gray-600/50">
                       <div className="flex items-center justify-between">
-                        <span className="text-white font-medium">{selectedDuration} minutes</span>
+                        <span className="text-white font-medium">
+                          {selectedDuration} minutes
+                        </span>
                         <FiClock className="text-green-400" />
                       </div>
                       <div className="text-xs text-gray-400 mt-1">
@@ -606,7 +639,9 @@ const ScriptWriterPage = () => {
                   </div>
 
                   <div className="pt-4 border-t border-gray-700/50">
-                    <h4 className="text-sm font-medium text-gray-300 mb-2">Script Features</h4>
+                    <h4 className="text-sm font-medium text-gray-300 mb-2">
+                      Script Features
+                    </h4>
                     <div className="space-y-2 text-xs text-gray-400">
                       <div className="flex items-center gap-2">
                         <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
@@ -658,7 +693,9 @@ const ScriptWriterPage = () => {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-xl font-bold text-white mb-2">{script.title}</h3>
+                      <h3 className="text-xl font-bold text-white mb-2">
+                        {script.title}
+                      </h3>
                       <div className="flex items-center gap-4 text-sm text-gray-400">
                         <div className="flex items-center gap-1">
                           <FiClock />
@@ -709,7 +746,8 @@ const ScriptWriterPage = () => {
                         Structure
                       </h4>
                       <p className="text-gray-300 text-sm">
-                        5-part structure with intro, key points, examples, and conclusion
+                        5-part structure with intro, key points, examples, and
+                        conclusion
                       </p>
                     </div>
                     <div className="p-4 bg-gray-800/30 rounded-lg">

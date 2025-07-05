@@ -7,7 +7,7 @@
 ### ❌ **File cần XÓA ngay (Confirmed unused)**
 
 1. **CompetitorsPageNew.tsx** - Không được import/sử dụng ở đâu
-2. **CompetitorsPageRefactored.tsx** - Không được import/sử dụng ở đâu  
+2. **CompetitorsPageRefactored.tsx** - Không được import/sử dụng ở đâu
 3. **CompetitorsPageWithSearch.tsx** - Không được import/sử dụng ở đâu
 4. **KeywordsPageNew.tsx** - Không được import/sử dụng ở đâu
 5. **LoginNew.tsx** - Không được import/sử dụng ở đâu
@@ -32,10 +32,11 @@
 ## 🧹 **CLEANING ACTIONS**
 
 ### Immediate Actions (Xóa ngay):
+
 ```bash
 # Xóa các file pages duplicate/unused
 rm src/pages/CompetitorsPageNew.tsx
-rm src/pages/CompetitorsPageRefactored.tsx  
+rm src/pages/CompetitorsPageRefactored.tsx
 rm src/pages/CompetitorsPageWithSearch.tsx
 rm src/pages/KeywordsPageNew.tsx
 rm src/pages/LoginNew.tsx
@@ -44,7 +45,7 @@ rm src/pages/SignupNew.tsx
 # Xóa router duplicate
 rm src/router/index.tsx
 
-# Xóa app simple version  
+# Xóa app simple version
 rm src/App.simple.tsx
 
 # Xóa error boundary duplicate
@@ -65,47 +66,52 @@ rm -rf src/features/
 ```
 
 ### Update imports sau khi xóa:
+
 ```typescript
 // Cập nhật src/components/create/index.ts
 // Xóa export DailyIdeasGenerator
 
-// Cập nhật src/hooks/index.ts  
+// Cập nhật src/hooks/index.ts
 // Xóa export useOptimizeVideos (nếu có)
 ```
 
 ## � **KẾT QUẢ SAU KHI DỌN DẸP**
 
 - **Files sẽ xóa:** ~13 files
-- **Files còn lại:** ~183 files  
+- **Files còn lại:** ~183 files
 - **Giảm kích thước:** ~7% project size
 - **Tăng maintainability:** Loại bỏ confusion về file nào đang được dùng
 
 ## ⭐ **RECOMMENDED ADDITIONAL CLEANUP**
 
 ### 1. Consolidate similar components:
+
 - Merge CompetitorsPage variants thành 1 component duy nhất
 - Chuẩn hóa naming convention (không cần suffix "New", "Final")
 
 ### 2. Review unused exports:
+
 ```bash
 # Tìm exports không được sử dụng
 npx ts-unused-exports tsconfig.json --searchNamespaces
 ```
 
 ### 3. Remove unused dependencies:
+
 ```bash
 # Kiểm tra dependencies không sử dụng
 npx depcheck
 ```
 
 ### 4. Code splitting optimization:
+
 - Lazy load các pages để giảm bundle size
 - Tree shaking để loại bỏ code không sử dụng
 
 ## 🎯 **PRIORITY ORDER**
 
-1. **HIGH**: Xóa duplicate pages (CompetitorsPage*, LoginNew, etc.)
-2. **MEDIUM**: Xóa debug components và unused hooks  
+1. **HIGH**: Xóa duplicate pages (CompetitorsPage\*, LoginNew, etc.)
+2. **MEDIUM**: Xóa debug components và unused hooks
 3. **LOW**: Cleanup exports và dependencies
 
 **Estimated time:** 30 minutes
